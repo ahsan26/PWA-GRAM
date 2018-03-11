@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>PWA GRAM</title>
+    <link rel="stylesheet" href="/node_modules/material-design-lite/material.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="manifest" href="/manifest.json">
+</head>
+
+<body onload="fetchPosts()">
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+        <header class="mdl-layout__header">
+            <div class="mdl-layout__header-row">
+                <span class="mdl-layout-title">PWA Gram</span>
+                <div class="mdl-layout-spacer"></div>
+                <nav class="mdl-navigation mdl-layout--large-screen-only">
+                    <a class="mdl-navigation__link" href="/help">Help</a>
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">
+                        ENABLE NOTIFICATIONS
+                    </button>
+                </nav>
+            </div>
+        </header>
+        <div class="mdl-layout__drawer">
+            <span class="mdl-layout-title">PWA Gram</span>
+            <nav class="mdl-navigation">
+                <a class="mdl-navigation__link" href="/">Feed</a>
+                <a class="mdl-navigation__link" href="/help">Help</a>
+                <button class="mdl-button notification-slider-btn mdl-js-button mdl-button--raised mdl-button--accent">
+                    ENABLE NOTIFICATIONS
+                </button>
+            </nav>
+        </div>
+        <main class="mdl-layout__content">
+            <div class="page-content">
+                <img src="/images/car.jpeg" id="app_msg_image" alt="Car" />
+                <h4 id="app_message">Share your moments</h4>
+                <div id="posts">
+
+                </div>
+            </div>
+        </main>
+    </div>
+    <button id="newPostBTN" onclick="showMOdal();" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
+        <i class="material-icons">add</i>
+    </button>
+
+    <div class="modal fade" id="addNewPostModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">Add New Post</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="mdl-textfield mdl-js-textfield">
+                        <input class="mdl-textfield__input" type="text" id="title" />
+                        <label class="mdl-textfield__label" for="title">Title</label>
+                    </div>
+
+                    <div class="mdl-textfield mdl-js-textfield">
+                        <input class="mdl-textfield__input" type="text" id="location">
+                        <label class="mdl-textfield__label" for="location">Location</label>
+                    </div>
+                    <input type="file" name="Image" placeholder="Image" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary">POST</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/node_modules/material-design-lite/material.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="./app.js"></script>
+</body>
+
+</html>

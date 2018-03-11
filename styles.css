@@ -1,0 +1,66 @@
+#app_message {
+	color: rgb(63, 81, 181) !important;
+	text-align: center;
+	font-size: 25px;
+}
+
+.notification-slider-btn {
+	margin-right: 10px;
+	margin-left: 10px;
+}
+
+#app_msg_image {
+	max-width: 100%;
+	margin: auto;
+	display: block;
+}
+
+#newPostBTN {
+	position: absolute;
+	bottom: 25px;
+	z-index: 99;
+	right: 25px;
+}
+
+#help_page_title {
+	font-family: 'Roboto', sans-serif;
+	font-weight: 500;
+	font-size: 30px;
+	margin-top: 20px;
+}
+
+#help_page_contact_title {
+	margin-top: 60px;
+	font-family: 'Roboto', sans-serif;
+	font-weight: 500;
+	font-size: 30px;
+}
+
+.help_btns {
+	margin-right: 10px;
+}
+
+.each_post_container {
+	width: 300px;
+	margin: auto;
+	height: 200px;
+}
+
+.each_post_container img {
+	width: 100%;
+}
+.each_post_container h4{
+	color: #fff;
+	position: relative;
+	top: 175px; 
+	font-weight: bold;
+	left: 10px;
+}
+.each_post_container div{
+	height: 35px;
+	text-align: center;
+	color: #7f8c8d;
+	font-size: 14px;
+	line-height: 30px;
+	box-shadow: 0px 4px 10px gray;
+}
