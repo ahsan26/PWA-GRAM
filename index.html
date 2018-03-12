@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/styles.css" />
     <link rel="manifest" href="/manifest.json">
+    <script src="./src/js/app.js"></script>
 </head>
 
 <body onload="fetchPosts()">
@@ -63,19 +64,20 @@
                 <div class="modal-body">
 
                     <div class="mdl-textfield mdl-js-textfield">
-                        <input class="mdl-textfield__input" type="text" id="title" />
+                        <input class="mdl-textfield__input" id="title_input" type="text" id="title" />
                         <label class="mdl-textfield__label" for="title">Title</label>
                     </div>
 
                     <div class="mdl-textfield mdl-js-textfield">
-                        <input class="mdl-textfield__input" type="text" id="location">
+                        <input class="mdl-textfield__input" id="location_input" type="text" id="location">
                         <label class="mdl-textfield__label" for="location">Location</label>
                     </div>
-                    <input type="file" name="Image" placeholder="Image" />
+                    <input type="file" id="post_image" onchange="saveNewImageForPost();" name="Image" placeholder="Image" />
                 </div>
+                <div id="add_newPost_div"></div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary">POST</button>
+                    <button type="button" onclick="saveNewPost();" class="btn btn-primary">POST</button>
                 </div>
             </div>
         </div>
@@ -84,7 +86,10 @@
     <script src="/node_modules/material-design-lite/material.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="./app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
+    <script src="./src/js/firebase.js"></script>
+    <script src="./src/js/idb.js"></script>
+    <script src="./src/js/utility.js"></script>
 </body>
 
 </html>

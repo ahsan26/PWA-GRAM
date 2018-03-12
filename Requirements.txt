@@ -1,0 +1,5 @@
+Add the image upload functionality
+
+Add the post functionality
+
+Retrieve all the posts from the indexedDB
