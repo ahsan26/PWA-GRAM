@@ -4,6 +4,11 @@ var dbPromise = idb.open("posts-store", 1, db => {
       keyPath: "id"
     });
   }
+  if (!db.objectStoreNames.contains("sync-posts")) {
+    db.createObjectStore("sync-posts", {
+      keyPath: "id"
+    });
+  }
 });
 
 function writeData(data, st) {
@@ -22,3 +27,12 @@ function readData(st) {
     return store.getAll();
   });
 };
+
+function removeAllDataFromLocalDB(st) {
+  dbPromise.then(db => {
+    let trans = db.transaction(st, "readwrite");
+    let store = trans.objectStore(st);
+    store.clear();
+    return trans.complete;
+  });
+}

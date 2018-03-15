@@ -8,7 +8,7 @@ self.addEventListener("install", event => {
   event.waitUntil(
     caches.open(Cache_Static_Name)
     .then(cache => {
-      const resources = ["/", "/index.html", "/styles.css", "/src/js/app.js", "/manifest.json", "/src/js/idb.js"];
+      const resources = ["/", "/index.html", "/offline.html", "/styles.css", "/src/js/app.js", "/manifest.json", "/src/js/idb.js"];
       cache.addAll(resources);
     })
   )
@@ -41,7 +41,15 @@ self.addEventListener("fetch", event => {
           });
       })
       .catch(err => {
-        return caches.match(event.request);
+        return caches.match(event.request)
+          .then(res => {
+            if (!res) {
+              return caches.open(Cache_Static_Name).then(cache => {
+                return cache.match("/offline.html");
+              });
+            }
+            return res;
+          })
       }));
   } else {
     event.respondWith(
@@ -50,9 +58,12 @@ self.addEventListener("fetch", event => {
         let cloneRes = res.clone();
         cloneRes.json()
           .then(data => {
-            Object.keys(data).forEach(key => {
-              writeData(data[key], "posts");
-            });
+            if (data!==undefined && data!== null && Object.keys(data).length !== 0) {
+              removeAllDataFromLocalDB("posts");
+              Object.keys(data).forEach(key => {
+                writeData(data[key], "posts");
+              });
+            }
           })
         return res;
       })
