@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>PWA GRAM</title>
-    <link rel="stylesheet" href="/node_modules/material-design-lite/material.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/styles.css" />
     <link rel="manifest" href="/manifest.json">
@@ -64,31 +64,31 @@
                     <h4 class="modal-title">Add New Post</h4>
                 </div>
                 <div class="modal-body">
-<form action="JavaScript:void(0)" onSubmit="saveNewPost();">
-    <div class="mdl-textfield mdl-js-textfield">
-        <input class="mdl-textfield__input" id="title_input" type="text" id="title" />
-        <label class="mdl-textfield__label" for="title">Title</label>
-    </div>
-    
-    <div class="mdl-textfield mdl-js-textfield">
-        <input class="mdl-textfield__input" id="location_input" type="text" id="location">
-        <label class="mdl-textfield__label" for="location">Location</label>
-    </div>
-    <input type="file" id="post_image" onchange="saveNewImageForPost();" name="Image" placeholder="Image" />
-</div>
-<div id="add_newPost_div"></div>
-<div class="modal-footer">
-    <button type="submit" class="btn btn-primary">POST</button>
-</div>
-</form>
-</div>
+                    <form action="JavaScript:void(0)" onSubmit="saveNewPost();">
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <input class="mdl-textfield__input" id="title_input" type="text" id="title" />
+                            <label class="mdl-textfield__label" for="title">Title</label>
+                        </div>
+
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <input class="mdl-textfield__input" id="location_input" type="text" id="location">
+                            <label class="mdl-textfield__label" for="location">Location</label>
+                        </div>
+                        <input type="file" id="post_image" onchange="saveNewImageForPost();" name="Image" placeholder="Image" />
+                </div>
+                <div id="add_newPost_div"></div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">POST</button>
+                </div>
+                </form>
+            </div>
         </div>
     </div>
-	<div id="notification" class="mdl-js-snackbar mdl-snackbar">
-            <div class="mdl-snackbar__text"></div>
-            <button class="mdl-snackbar__action" type="button"></button>
-        </div>
-    <script src="/node_modules/material-design-lite/material.min.js"></script>
+    <div id="notification" class="mdl-js-snackbar mdl-snackbar">
+        <div class="mdl-snackbar__text"></div>
+        <button class="mdl-snackbar__action" type="button"></button>
+    </div>
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="./src/js/idb.js"></script>

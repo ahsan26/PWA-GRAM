@@ -47,15 +47,15 @@ function renderPosts() {
 	readData("posts")
 		.then(posts => {
 			document.querySelector("#posts").innerHTML = posts.map(eachPost => `
-			<div class="each_post_container">
-				<div class="eachPost_close_container">
-					<i onClick="deletePost('${eachPost.id}');" class="material-icons">close</i>
-				</div>	   
-						<h4>${eachPost.title}</h4>
-						<img src="${eachPost.image}" />
-						<div class="eachPost_location">In ${eachPost.location}</div>
+				<div class="each_post_container">
+					<div class="eachPost_close_container">
+						<i onClick="deletePost('${eachPost.id}');" class="material-icons">close</i>
 					</div>
-		`);
+							<h4>${eachPost.title}</h4>
+							<img src="${eachPost.image}" />
+							<div class="eachPost_location">In ${eachPost.location}</div>
+						</div>
+			`);
 		});
 }
 
@@ -77,24 +77,25 @@ function getElement(identifier) {
 function showMOdal() {
 	$('#addNewPostModal').modal('show');
 }
+var imgFile;
 
 function saveNewPost() {
-	var title = getElement("#title_input").value;
-	var location = getElement("#location_input").value;
+	var title = getElement("#title_input").value.trim();
+	var location = getElement("#location_input").value.trim();
 	if (imgFile && title && location) {
 		getElement("#add_newPost_div").innerHTML = "";
-		let storageRef = firebase.storage().ref(imgFile.name);
-		let task = storageRef.put(imgFile);
-		let img_url = res.metadata.downloadURLs[0];
 		let id = createUniqueId();
-		var dataOfPost = {
-			id,
-			title,
-			location,
-			image: img_url
-		};
 		if (netWorkStatus) {
+			let storageRef = firebase.storage().ref(imgFile.name);
+			let task = storageRef.put(imgFile);
 			task.then(res => {
+				let img_url = res.metadata.downloadURLs[0];
+				var dataOfPost = {
+					id,
+					title,
+					location,
+					image: img_url
+				};
 				let dbRef = firebase.database().ref();
 				dbRef.child("posts").child(id).set(dataOfPost);
 				hideModal();
@@ -103,23 +104,34 @@ function saveNewPost() {
 				getElement("#post_image").value = "";
 			});
 		} else {
+			var dataOfPost = {
+				id,
+				title,
+				location,
+				image: ""
+			};
 			if ("serviceWorker" in navigator && "SyncManager" in window) {
 				navigator.serviceWorker.ready
 					.then(sw => {
 						writeData(dataOfPost, "sync-posts").then(res => {
 							return sw.sync.register("sync-new-post")
-							.then(_=>{
-								showSnackbarOfNetwork("Your post was saved to sync!");
-							})
+								.then(_ => {
+									hideModal();
+									showSnackbarOfNetwork("Your post was saved to sync!");
+									getElement("#title_input").value = "";
+									getElement("#location_input").value = "";
+									getElement("#post_image").value = "";
+								})
 						});
 					})
+			} else {
+
 			}
 		}
 	} else {
 		getElement("#add_newPost_div").innerHTML = "All Fields Are required!";
 	}
 }
-var imgFile;
 
 function saveNewImageForPost() {
 	imgFile = getElement("#post_image").files[0];

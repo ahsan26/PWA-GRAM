@@ -1,5 +1,8 @@
 importScripts("/src/js/idb.js");
 importScripts("/src/js/utility.js");
+importScripts("https://www.gstatic.com/firebasejs/4.11.0/firebase.js");
+importScripts("/src/js/firebase.js");
+
 const Cache_Static_Name = "static-v1";
 const Cache_Dynamic_Name = "dynamic-v1";
 
@@ -58,7 +61,7 @@ self.addEventListener("fetch", event => {
         let cloneRes = res.clone();
         cloneRes.json()
           .then(data => {
-            if (data!==undefined && data!== null && Object.keys(data).length !== 0) {
+            if (data !== undefined && data !== null && Object.keys(data).length !== 0) {
               removeAllDataFromLocalDB("posts");
               Object.keys(data).forEach(key => {
                 writeData(data[key], "posts");
@@ -69,5 +72,54 @@ self.addEventListener("fetch", event => {
       })
       .catch()
     );
+  }
+});
+
+// self.addEventListener("sync", event => {
+//       if (event.tag === "sync-new-post") {
+//         event.waitUntil(
+//           readData("sync-posts")
+//           .then(data => {
+//               data.forEach(eachPost => {
+//                 let id = createUniqueId();
+//                 let storageRef = firebase.storage().ref(imgFile.name);
+//                 let task = storageRef.put(imgFile);
+//                 task.then(res => {
+//                   let img_url = res.metadata.downloadURLs[0];
+//                   var dataOfPost = {
+//                     id,
+//                     title,
+//                     location,
+//                     image: img_url
+//                   };
+//                   let dbRef = firebase.database().ref();
+//                   dbRef.child("posts").child(id).set(dataOfPost);
+//                 });
+//               })
+//             )
+//           }
+//         });
+
+
+self.addEventListener("sync", event=>{
+  if(event.tag=="sync-new-post"){
+    readData("sync-posts")
+    .then(data=>{
+      data.forEach(each_sync_post=>{
+        // let storageRef = firebase.storage().ref(imgFile.name);
+        // let task = storageRef.put(imgFile);
+        // task.then(res => {
+          const {id, title, location} = each_sync_post;
+          // let img_url = res.metadata.downloadURLs[0];
+          var dataOfPost = {
+            id,
+            title,
+            location,
+            image: "https://firebasestorage.googleapis.com/v0/b/pwa-gram-2dc88.appspot.com/o/offline-first-Logo.png?alt=media&token=99178fcf-eb59-483a-a106-cc37e70cf1b0"
+          };
+          db.child("posts").child(id).set(dataOfPost);
+        // });
+      });
+    });
   }
 });
